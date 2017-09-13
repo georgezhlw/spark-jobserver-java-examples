@@ -1,5 +1,5 @@
 # spark-jobserver-java-examples
-Example Spark jobs of spark-jobserver in Java
+Example Spark jobs of spark-jobserver in Java, works with lastest 0.8 version.  
 
 Instructions
 
@@ -7,7 +7,7 @@ Get spark-jobserver up and running following the instructions at https://github.
 
 Clone this project
 
-git clone https://github.com/ducnm0/spark-jobserver-java-examples
+git clone https://github.com/georgezhlw/spark-jobserver-java-examples
 
 Build with gradle
 
@@ -15,7 +15,10 @@ gradle build
 
 Upload and run the word count example
 
-curl --data-binary @build/libs/spark-jobserver-java-examples-1.0.jar localhost:8090/jars/test
+curl --data-binary @build/libs/spark-jobserver-java-examples-1.0.jar localhost:8090/jars/myapp1  
 
-curl -d "input.string = a b c a b see" 'localhost:8090/jobs?appName=test&classPath=com.sparkjobserver.examples.SparkWordCountJob&sync=true'
+Use the following to create a Java spark context, otherwise the program will get error "SparkWordCountJob cannot be cast to spark.jobserver.api.SparkJobBase":  
+curl -d "" 'localhost:8090/contexts/jcontext1?context-factory=spark.jobserver.context.JavaSparkContextFactory'  
+
+curl -d "input.string = a b c a b see" 'localhost:8090/jobs?appName=myapp1&classPath=com.sparkjobserver.examples.SparkWordCountJob&context=jcontext1&sync=true'  
  
